@@ -5,7 +5,7 @@ import { SelectInput } from '../../components/SelectInput';
 import { Container, Content, Filters } from './styles';
 
 import gains from '../../repositories/gains';
-import expenses from '../../repositories/expenses';
+import { expenses } from '../../repositories/expenses';
 import formatCurrency from '../../utils/formatCurrency';
 import formatDate from '../../utils/formatDate';
 
@@ -28,6 +28,12 @@ interface DataProps {
 
 const List: React.FC<RouteParams> = ({ match }) => {
   const [data, setData] = useState<DataProps[]>([]);
+  const [monthSeleted, setMonthSelected] = useState<string>(
+    String(new Date().getMonth() + 1)
+  );
+  const [yearSeleted, setYearSelected] = useState<string>(
+    String(new Date().getFullYear())
+  );
 
   const { type } = match.params;
 
@@ -36,10 +42,12 @@ const List: React.FC<RouteParams> = ({ match }) => {
       ? {
           title: 'Entradas',
           lineColor: '#f7931b',
+          data: gains,
         }
       : {
-          title: 'Entradas',
+          title: 'Saídas',
           lineColor: '#e44c4e',
+          data: expenses,
         };
   }, [type]);
 
@@ -47,8 +55,35 @@ const List: React.FC<RouteParams> = ({ match }) => {
     return type === 'entry-balance' ? gains : expenses;
   }, [type]);
 
+  const months = [
+    { value: 1, label: 'Janeiro' },
+    { value: 2, label: 'Fevereiro' },
+    { value: 3, label: 'Março' },
+    { value: 4, label: 'Abril' },
+    { value: 5, label: 'Maio' },
+    { value: 6, label: 'Junho' },
+    { value: 7, label: 'Julho' },
+    { value: 8, label: 'Agosto' },
+    { value: 9, label: 'Setembro' },
+    { value: 10, label: 'Outubro' },
+  ];
+
+  const years = [
+    { value: 2021, label: 2020 },
+    { value: 2022, label: 2021 },
+    { value: 2023, label: 2022 },
+  ];
+
   useEffect(() => {
-    const response = listData.map((item) => {
+    const filteredDate = listData.filter((item) => {
+      const date = new Date(item.date);
+      const month = String(date.getMonth() + 1);
+      const year = String(date.getFullYear());
+
+      return month === monthSeleted && year === yearSeleted;
+    });
+
+    const formattedData = filteredDate.map((item) => {
       return {
         id: Math.random() * (data.length - 1),
         description: item.description,
@@ -59,20 +94,8 @@ const List: React.FC<RouteParams> = ({ match }) => {
       };
     });
 
-    setData(response);
-  }, []);
-
-  const months = [
-    { value: 5, label: 'Maio' },
-    { value: 6, label: 'Junho' },
-    { value: 7, label: 'Julho' },
-  ];
-
-  const years = [
-    { value: 2021, label: 2021 },
-    { value: 2022, label: 2022 },
-    { value: 2023, label: 2023 },
-  ];
+    setData(formattedData);
+  }, [listData, monthSeleted, yearSeleted, data.length]);
 
   return (
     <Container>
@@ -80,8 +103,16 @@ const List: React.FC<RouteParams> = ({ match }) => {
         title={changeTitleAndColor.title}
         lineColor={changeTitleAndColor.lineColor}
       >
-        <SelectInput options={months} />
-        <SelectInput options={years} />
+        <SelectInput
+          options={months}
+          onChange={(e) => setMonthSelected(e.target.value)}
+          defaultValue={monthSeleted}
+        />
+        <SelectInput
+          options={years}
+          onChange={(e) => setYearSelected(e.target.value)}
+          defaultValue={yearSeleted}
+        />
       </ContentHeader>
       <Filters>
         <button className="tag-filter tag-filter-recurrent" type="button">
