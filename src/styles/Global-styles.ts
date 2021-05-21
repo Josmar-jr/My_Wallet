@@ -9,6 +9,7 @@ export default createGlobalStyle`
 
   body {
     font-family: 'Roboto', sans-serif;
+    color: ${({ theme }) => theme.colors.white};
   }
 
   *, button, input {

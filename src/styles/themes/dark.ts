@@ -10,7 +10,7 @@ export const Dark = {
     black: '#000',
     gray: '#bfbfbf',
 
-    succes: '#4e41f0',
+    success: '#4e41f0',
     info: '#f7931b',
     warning: '#e44c4e',
   },

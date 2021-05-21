@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Header, MenuContainer } from './styles';
+import { Link } from 'react-router-dom';
 import {
   MdDashboard,
   MdArrowDownward,
@@ -15,22 +16,22 @@ export const Aside: React.FC = () => {
         <h3>My Wallet</h3>
       </Header>
       <MenuContainer>
-        <a href="#">
+        <Link to="/dashboard">
           <MdDashboard />
           DashBoard
-        </a>
-        <a href="#">
+        </Link>
+        <Link to="/List/entry-balance">
           <MdArrowUpward />
-          Income
-        </a>
-        <a href="#">
+          Spending
+        </Link>
+        <Link to="/List/incomings-balance">
           <MdArrowDownward />
           Incomings
-        </a>
-        <a href="#">
+        </Link>
+        <Link to="#">
           <MdExitToApp />
           Exit
-        </a>
+        </Link>
       </MenuContainer>
     </Container>
   );

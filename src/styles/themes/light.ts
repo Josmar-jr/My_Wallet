@@ -10,7 +10,7 @@ export const Light = {
     black: '#fff',
     gray: '#bfbfbf',
 
-    succes: '#03bb85',
+    success: '#03bb85',
     info: '#3b5998',
     warning: '#ff6961',
   },
