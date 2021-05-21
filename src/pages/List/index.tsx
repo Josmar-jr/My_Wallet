@@ -6,6 +6,8 @@ import { Container, Content, Filters } from './styles';
 
 import gains from '../../repositories/gains';
 import expenses from '../../repositories/expenses';
+import formatCurrency from '../../utils/formatCurrency';
+import formatDate from '../../utils/formatDate';
 
 interface RouteParams {
   match: {
@@ -50,10 +52,10 @@ const List: React.FC<RouteParams> = ({ match }) => {
       return {
         id: Math.random() * (data.length - 1),
         description: item.description,
-        amountFormatted: item.amount,
+        amountFormatted: formatCurrency(Number(item.amount)),
         frequency: item.frequency,
-        dateFormatted: item.date,
-        tagColor: '#4e41f0',
+        dateFormatted: formatDate(item.date),
+        tagColor: item.frequency === 'eventual' ? '#4e41f0' : '#e44c4e',
       };
     });
 
