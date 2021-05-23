@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
+
 import { ContentHeader } from '../../components/ContentHeader';
 import { HistoryFinanceCard } from '../../components/HistoryFinanceCard';
 import { SelectInput } from '../../components/SelectInput';
@@ -8,6 +9,7 @@ import gains from '../../repositories/gains';
 import { expenses } from '../../repositories/expenses';
 import formatCurrency from '../../utils/formatCurrency';
 import formatDate from '../../utils/formatDate';
+import { listOfMonths } from '../../utils/months';
 
 interface RouteParams {
   match: {
@@ -55,25 +57,26 @@ const List: React.FC<RouteParams> = ({ match }) => {
     return type === 'entry-balance' ? gains : expenses;
   }, [type]);
 
-  const months = [
-    { value: 1, label: 'Janeiro' },
-    { value: 2, label: 'Fevereiro' },
-    { value: 3, label: 'Março' },
-    { value: 4, label: 'Abril' },
-    { value: 5, label: 'Maio' },
-    { value: 6, label: 'Junho' },
-    { value: 7, label: 'Julho' },
-    { value: 8, label: 'Agosto' },
-    { value: 9, label: 'Setembro' },
-    { value: 10, label: 'Outubro' },
-  ];
+  const months = useMemo(() => {
+    return listOfMonths.map((month, index) => {
+      return { value: index + 1, label: month };
+    });
+  }, []);
 
-  const years = [
-    { value: 2020, label: 2020 },
-    { value: 2021, label: 2021 },
-    { value: 2022, label: 2022 },
-    { value: 2023, label: 2023 },
-  ];
+  const years = useMemo(() => {
+    let uniqueYears: number[] = [];
+
+    listData.forEach((item) => {
+      const date = new Date(item.date);
+      const year = date.getFullYear();
+
+      if (!uniqueYears.includes(year)) uniqueYears.push(year);
+    });
+
+    return uniqueYears.map((year) => {
+      return { value: year, label: year };
+    });
+  }, [listData]);
 
   useEffect(() => {
     const filteredDate = listData.filter((item) => {
