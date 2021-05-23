@@ -67,7 +67,35 @@ const gains = [
     amount: '2500.00',
     type: 'entrada',
     frequency: 'recorrente',
-    date: '2020-07-10',
+    date: '2021-05-12',
+  },
+  {
+    description: 'Salário',
+    amount: '2500.00',
+    type: 'entrada',
+    frequency: 'recorrente',
+    date: '2021-05-19',
+  },
+  {
+    description: 'Salário',
+    amount: '2500.00',
+    type: 'entrada',
+    frequency: 'recorrente',
+    date: '2021-05-19',
+  },
+  {
+    description: 'Salário',
+    amount: '2500.00',
+    type: 'entrada',
+    frequency: 'recorrente',
+    date: '2021-06-23',
+  },
+  {
+    description: 'Salário',
+    amount: '2500.00',
+    type: 'entrada',
+    frequency: 'recorrente',
+    date: '2022-01-20',
   },
 ];
 
