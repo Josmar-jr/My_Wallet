@@ -18,6 +18,7 @@ export const Filters = styled.div`
     color: ${({ theme }) => theme.colors.white};
 
     margin: 0 0.75rem;
+    opacity: 0.4;
 
     transition: opacity 0.3s;
 
@@ -42,5 +43,8 @@ export const Filters = styled.div`
     margin: 0 auto;
     border-bottom: 10px solid ${({ theme }) => theme.colors.success};
     border-radius: 3px;
+  }
+  .tag-active {
+    opacity: 1;
   }
 `;

@@ -340,6 +340,6 @@ export const expenses = [
     amount: '60.00',
     type: 'saída',
     frequency: 'eventual',
-    date: '2020-07-19',
+    date: '2021-05-19',
   },
 ];
