@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Header, MenuContainer } from './styles';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/logo.svg';
 import {
   MdDashboard,
   MdArrowDownward,
@@ -12,7 +13,7 @@ export const Aside: React.FC = () => {
   return (
     <Container>
       <Header>
-        <img src="/assets/logo.svg" alt="Logo My Wallet" />
+        <img src={logo} alt="Logo My Wallet" />
         <h3>My Wallet</h3>
       </Header>
       <MenuContainer>
