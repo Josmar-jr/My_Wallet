@@ -12,6 +12,7 @@ import gains from '../../repositories/gains';
 import { listOfMonths } from '../../utils/months';
 
 import { Container, Content } from './styles';
+import PieChart from '../../components/PieChart';
 
 const Dashboard: React.FC = () => {
   const [monthSelected, setMonthSelected] = useState<number>(
@@ -167,6 +168,7 @@ const Dashboard: React.FC = () => {
           footerText={message.footerText}
           icon={message.icon}
         />
+        <PieChart />
       </Content>
     </Container>
   );
