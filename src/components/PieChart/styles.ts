@@ -30,7 +30,6 @@ export const LegendContainer = styled.ul`
   height: 175px;
   padding: 0.5rem 0.75rem;
   overflow-y: scroll;
-  border: 1px solid red;
 
   &::-webkit-scrollbar {
     width: 10px;
@@ -71,4 +70,8 @@ export const Legend = styled.li<LegendProps>`
   }
 `;
 
-export const SideRight = styled.div``;
+export const SideRight = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+`;

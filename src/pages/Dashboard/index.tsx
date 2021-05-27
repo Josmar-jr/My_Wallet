@@ -12,7 +12,7 @@ import gains from '../../repositories/gains';
 import { listOfMonths } from '../../utils/months';
 
 import { Container, Content } from './styles';
-import PieChart from '../../components/PieChart';
+import PieChartBox from '../../components/PieChart';
 
 const Dashboard: React.FC = () => {
   const [monthSelected, setMonthSelected] = useState<number>(
@@ -61,7 +61,7 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const totalExpense = useMemo(() => {
+  const totalExpenses = useMemo(() => {
     let total: number = 0;
 
     expenses.forEach((item) => {
@@ -101,15 +101,39 @@ const Dashboard: React.FC = () => {
     return total;
   }, [monthSelected, yearSelected]);
 
+  const relationExpensesVersusGains = useMemo(() => {
+    const total = totalGains + totalExpenses;
+
+    const gainsPercent = Number(((totalGains / total) * 100).toFixed(1));
+    const expensesPercent = Number(((totalExpenses / total) * 100).toFixed(1));
+
+    const data = [
+      {
+        name: 'Entradas',
+        value: totalGains,
+        percent: gainsPercent,
+        color: '#F7931b',
+      },
+      {
+        name: 'Saídas',
+        value: totalExpenses,
+        percent: expensesPercent,
+        color: '#e44c4e',
+      },
+    ];
+
+    return data;
+  }, [totalGains, totalExpenses]);
+
   const message = useMemo(() => {
-    if (totalGains - totalExpense < 0) {
+    if (totalGains - totalExpenses < 0) {
       return {
         title: 'Que triste!',
         description: 'Neste mês, você gastou mais do que deveria',
         footerText: 'Sua carteira está negativa',
         icon: sadImg,
       };
-    } else if (totalGains - totalExpense === 0) {
+    } else if (totalGains - totalExpenses === 0) {
       return {
         title: 'Ufaaaa!',
         description: 'Neste mês, você gastou exatamente o que ganhou',
@@ -124,7 +148,7 @@ const Dashboard: React.FC = () => {
         icon: happyImg,
       };
     }
-  }, [totalGains, totalExpense]);
+  }, [totalGains, totalExpenses]);
 
   return (
     <Container>
@@ -143,7 +167,7 @@ const Dashboard: React.FC = () => {
       <Content>
         <WalletBox
           title="Saldo"
-          amount={totalGains - totalExpense}
+          amount={totalGains - totalExpenses}
           footerLabel="atualizado com base nas entradas e saídas"
           icon="dolar"
           color="#4e41f0"
@@ -157,7 +181,7 @@ const Dashboard: React.FC = () => {
         />
         <WalletBox
           title="Saídas"
-          amount={totalExpense}
+          amount={totalExpenses}
           footerLabel="atualizado com base nas entradas e saídas"
           icon="arrowDown"
           color="#e44c4e"
@@ -168,7 +192,7 @@ const Dashboard: React.FC = () => {
           footerText={message.footerText}
           icon={message.icon}
         />
-        <PieChart />
+        <PieChartBox data={relationExpensesVersusGains} />
       </Content>
     </Container>
   );
