@@ -52,7 +52,7 @@ export const Legend = styled.li<LegendProps>`
   align-items: center;
 
   margin-bottom: 1rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
 
   > div {
     background-color: ${({ color }) => color};

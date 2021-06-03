@@ -13,6 +13,7 @@ import { listOfMonths } from '../../utils/months';
 
 import { Container, Content } from './styles';
 import PieChartBox from '../../components/PieChart';
+import HistoryBox from '../../components/HistoryBox';
 
 const Dashboard: React.FC = () => {
   const [monthSelected, setMonthSelected] = useState<number>(
@@ -193,6 +194,7 @@ const Dashboard: React.FC = () => {
           icon={message.icon}
         />
         <PieChartBox data={relationExpensesVersusGains} />
+        <HistoryBox />
       </Content>
     </Container>
   );
