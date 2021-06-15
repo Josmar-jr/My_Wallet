@@ -5,7 +5,6 @@ import {
   ResponsiveContainer,
   LineChart,
   Line,
-  XAxis,
   CartesianGrid,
   Tooltip,
 } from 'recharts';
@@ -17,9 +16,8 @@ const HistoryBox: React.FC = () => (
     <ResponsiveContainer>
       <LineChart data={[]}>
         <CartesianGrid strokeDasharray="3 3" stroke="#cecece" />
-        <XAxis datakey="month" stroke="#cecece" />
         <Tooltip />
-        <Line />
+        <Line type="monotone" dataKey="amountOutput" />
       </LineChart>
     </ResponsiveContainer>
   </Container>
